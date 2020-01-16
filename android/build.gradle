@@ -1,0 +1,29 @@
+apply plugin: 'com.android.library'
+
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
+android {
+    compileSdkVersion safeExtGet("compileSdkVersion", 28)
+    buildToolsVersion safeExtGet("buildToolsVersion", "28.0.3")
+
+    defaultConfig {
+        minSdkVersion safeExtGet("minSdkVersion", 16)
+        targetSdkVersion safeExtGet("targetSdkVersion", 28)
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+    }
+}
+
+repositories {
+    maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
+}
+
+dependencies {
+    implementation "com.facebook.react:react-native:${safeExtGet("reactNative", "+")}" // from node_modules
+    implementation group: 'com.zendesk', name: 'support', version: '3.0.3'
+}

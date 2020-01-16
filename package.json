@@ -1,0 +1,42 @@
+{
+  "name": "rn-zendesk",
+  "version": "1.0.0",
+  "description": "Wrapper around the native Zendesk SDK for React Native.",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "scripts": {
+    "build": "rimraf lib && tsc"
+  },
+  "files": [
+    "lib/**/*",
+    "ios/**/*",
+    "android/**/*",
+    "*.podspec"
+  ],
+  "homepage": "https://github.com/RosterBuster/rn-zendesk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RosterBuster/rn-zendesk"
+  },
+  "keywords": [
+    "zendesk",
+    "react",
+    "native",
+    "react-native",
+    "react-native-zendesk",
+    "ios",
+    "android",
+    "support",
+    "rn-zendesk"
+  ],
+  "author": "RB Group.aero",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RosterBuster/rn-zendeskissues"
+  },
+  "devDependencies": {
+    "@types/react-native": "^0.60.0",
+    "rimraf": "^3.0.0",
+    "typescript": "^3.7.0"
+  }
+}
