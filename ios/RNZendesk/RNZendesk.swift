@@ -53,7 +53,7 @@ class RNZendesk: RCTEventEmitter {
             if let tags = options["tags"] as? [String] {
                 config.tags = tags
             }
-            config.subject = (options["hideContactSupport"] as? String) ?? ""
+            config.subject = (options["subject"] as? String) ?? ""
 
             hcConfig.showContactOptionsOnEmptySearch = (options["hideContactSupport"] as? Bool) ?? false
 
