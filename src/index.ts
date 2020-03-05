@@ -5,7 +5,7 @@ const { RNZendesk } = NativeModules;
 /**
  * required configuration to initialize zendesk
  */
-interface Config {
+export interface Config {
   appId: string;
   clientId: string;
   zendeskUrl: string;
@@ -25,7 +25,6 @@ interface NewTicketOptions {
 
 /**
  * initialize zendesk with provided configuration
- * Note: zendesk should be initialized before accessing `identifyAnonymous`
  *
  * @see https://developer.zendesk.com/embeddables/docs/ios_support_sdk/sdk_initialize#initializing-the-support-sdk-required
  * @param config appId, cliendId, zendeskUrl
@@ -47,6 +46,7 @@ export function identifyAnonymous(name?: string, email?: string) {
 
 /**
  * launch help center
+ * Note: zendesk should be initialized before accessing `showHelpCenter`
  *
  * @param options
  */
