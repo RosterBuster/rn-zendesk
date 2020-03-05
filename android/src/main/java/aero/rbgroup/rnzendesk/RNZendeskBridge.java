@@ -71,7 +71,7 @@ public class RNZendeskBridge extends ReactContextBaseJavaModule {
             .withRequestSubject(subject)
             .withTags(tags)
             .config();
-            
+
         Intent hcaIntent = HelpCenterActivity.builder()
             .withContactUsButtonVisible(enableContactUs)
             .intent(getReactApplicationContext(), requestActivityConfig);
