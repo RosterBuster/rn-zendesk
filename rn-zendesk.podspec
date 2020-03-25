@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.version      = package["version"]
   s.summary      = package['description']
   s.license      = package['license']
-  
+
   s.author       = package['author']
   s.homepage     = package['homepage']
   s.platform     = :ios, "11.0"
@@ -17,5 +17,5 @@ Pod::Spec.new do |s|
   s.swift_version = '5.0'
 
   s.dependency "React"
-  s.dependency "ZendeskSDK", "~> 3.0.3"
+  s.dependency "ZendeskSDK", "~> 4.0.0"
 end
