@@ -31,6 +31,7 @@ public class RNZendeskBridge extends ReactContextBaseJavaModule {
 
     @Override
     public String getName() {
+        // module name
         return "RNZendesk";
     }
 
@@ -64,6 +65,7 @@ public class RNZendeskBridge extends ReactContextBaseJavaModule {
     public void showHelpCenter(ReadableMap options) {
         ArrayList tags = options.hasKey("tags") ? options.getArray("tags").toArrayList() : new ArrayList();
         String subject = options.hasKey("subject") ? options.getString("subject") : "";
+        boolean enableContactUs = !(options.hasKey("hideContactSupport") && options.getBoolean("hideContactSupport"));
 
         UiConfig requestActivityConfig = RequestActivity.builder()
             .withRequestSubject(subject)
@@ -71,7 +73,7 @@ public class RNZendeskBridge extends ReactContextBaseJavaModule {
             .config();
 
         Intent hcaIntent = HelpCenterActivity.builder()
-            .withContactUsButtonVisible(!(options.hasKey("hideContactSupport") && options.getBoolean("hideContactSupport")))
+            .withContactUsButtonVisible(enableContactUs)
             .intent(getReactApplicationContext(), requestActivityConfig);
 
         hcaIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
