@@ -1,4 +1,4 @@
-# RN-Zendesk
+# RN-Zendesk ![npm](https://img.shields.io/npm/dt/rn-zendesk)
 
 A simple React Native wrapper around the Zendesk SDK for quick and painless customer support
 
@@ -17,22 +17,19 @@ A simple React Native wrapper around the Zendesk SDK for quick and painless cust
 
 ## Installation
 
-1. Add the package via yarn or npm
-
+#### 1. Add the package via yarn or npm
 ```
 yarn add rn-zendesk
 npm install --save rn-zendesk
 ```
-
-2. Linking
-
+#### 2. Linking
 - On RN >= 60, autolink should take care of everything
 - On RN < v60, run the manual linking via
   ```
   react-native link rn-zendesk
   ```
 
-3. For iOS, run `pod install` in the `ios` folder to install the native dependencies
+For iOS, run `pod install` in the `ios` folder to install the native dependencies
 
 ## Getting Started
 
