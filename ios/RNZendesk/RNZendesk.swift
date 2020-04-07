@@ -4,6 +4,7 @@ import CommonUISDK
 import ZendeskSDK
 import ZendeskCoreSDK
 
+
 @objc(RNZendesk)
 class RNZendesk: RCTEventEmitter {
 
@@ -48,14 +49,21 @@ class RNZendesk: RCTEventEmitter {
     func showHelpCenter(with options: [String: Any]) {
         DispatchQueue.main.async {
             let hcConfig = HelpCenterUiConfiguration()
-
             let config = RequestUiConfiguration()
+
             if let tags = options["tags"] as? [String] {
                 config.tags = tags
             }
             config.subject = (options["subject"] as? String) ?? ""
 
             hcConfig.showContactOptionsOnEmptySearch = (options["hideContactSupport"] as? Bool) ?? false
+
+            if let groupType = options["groupType"] as? UInt, let overviewGroupType = ZDKHelpCenterOverviewGroupType(rawValue: groupType) {
+                hcConfig.groupType = overviewGroupType
+            }
+            if let groupIds = options["groupIds"] as? [NSNumber] {
+                hcConfig.groupIds = groupIds
+            }
 
             let helpCenter = HelpCenterUi.buildHelpCenterOverviewUi(withConfigs: [hcConfig, config])
             

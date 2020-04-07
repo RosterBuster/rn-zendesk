@@ -20,6 +20,7 @@ import zendesk.core.JwtIdentity;
 import zendesk.core.AnonymousIdentity;
 import zendesk.support.Support;
 import zendesk.support.guide.HelpCenterActivity;
+import zendesk.support.guide.HelpCenterUiConfig.Builder;
 import zendesk.support.request.RequestActivity;
 import zendesk.support.requestlist.RequestListActivity;
 
@@ -72,10 +73,29 @@ public class RNZendeskBridge extends ReactContextBaseJavaModule {
             .withTags(tags)
             .config();
 
-        Intent hcaIntent = HelpCenterActivity.builder()
-            .withContactUsButtonVisible(enableContactUs)
-            .intent(getReactApplicationContext(), requestActivityConfig);
+        Builder builder = HelpCenterActivity.builder()
+            .withContactUsButtonVisible(enableContactUs);
 
+        int groupType = options.hasKey("groupType") ? options.getInt("groupType") : 0;
+        ArrayList<Double> groupIds = options.hasKey("groupIds") ? options.getArray("groupIds").toArrayList() : new ArrayList();
+        ArrayList<Long> longGroupIds = new ArrayList();
+
+        for (int i = 0; i < groupIds.size(); i++) {
+            longGroupIds.add(groupIds.get(i).longValue());
+        }
+
+        switch(groupType) {
+            case 1: {
+                builder.withArticlesForSectionIds(longGroupIds);
+                break;
+            }
+            case 2: {
+                builder.withArticlesForCategoryIds(longGroupIds);
+                break;
+            }
+        }
+
+        Intent hcaIntent = builder.intent(getReactApplicationContext(), requestActivityConfig);
         hcaIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getReactApplicationContext().startActivity(hcaIntent);
     }

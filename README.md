@@ -18,11 +18,14 @@ A simple React Native wrapper around the Zendesk SDK for quick and painless cust
 ## Installation
 
 #### 1. Add the package via yarn or npm
+
 ```
 yarn add rn-zendesk
 npm install --save rn-zendesk
 ```
+
 #### 2. Linking
+
 - On RN >= 60, autolink should take care of everything
 - On RN < v60, run the manual linking via
   ```
@@ -64,6 +67,8 @@ import * as RNZendesk from "rn-zendesk";
 
 RNZendesk.showHelpCenter({
   subject: "Title for any new ticket created by the user inside helpcenter",
-  tags: ["tag1", "tag2", "tag3"]
+  tags: ["tag1", "tag2", "tag3"],
+  groupType: 2, // 0: default, 1: sections, 2: categories
+  groupIds: [123, 456] // array of categories/sections id
 });
 ```

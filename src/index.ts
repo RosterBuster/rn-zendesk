@@ -11,11 +11,19 @@ export interface Config {
   zendeskUrl: string;
 }
 
+export enum ZDKHelpCenterOverviewGroupType {
+  DEFAULT = 0,
+  SECTION = 1,
+  CATEGORY = 2
+}
+
 /**
  * options when launching the help center
  */
 export interface HelpCenterOptions extends NewTicketOptions {
   hideContactSupport?: boolean;
+  groupType: ZDKHelpCenterOverviewGroupType;
+  groupIds: Array<number>;
 }
 
 interface NewTicketOptions {
