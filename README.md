@@ -72,3 +72,16 @@ RNZendesk.showHelpCenter({
   groupIds: [123, 456] // array of categories/sections id
 });
 ```
+
+## Troubleshooting
+#### Android build fails "Could not find com.zendesk:support"
+
+If you get this error while building for Android, simply add the below to the `allprojects>repositories` block in `android/build.gradle`
+
+```
+allprojects {
+    repositories {
+      maven { url 'https://zendesk.jfrog.io/zendesk/repo' }
+    }
+}
+```
