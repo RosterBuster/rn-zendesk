@@ -3,6 +3,7 @@ package aero.rbgroup.rnzendesk;
 import android.content.Intent;
 import android.os.Build;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
@@ -77,7 +78,7 @@ public class RNZendeskBridge extends ReactContextBaseJavaModule {
             .withContactUsButtonVisible(enableContactUs);
 
         int groupType = options.hasKey("groupType") ? options.getInt("groupType") : 0;
-        ArrayList<Double> groupIds = options.hasKey("groupIds") ? options.getArray("groupIds").toArrayList() : new ArrayList();
+        ArrayList<Double> groupIds = options.hasKey("groupIds") ? getGroupIds(options) : new ArrayList();
         ArrayList<Long> longGroupIds = new ArrayList();
 
         for (int i = 0; i < groupIds.size(); i++) {
@@ -98,5 +99,20 @@ public class RNZendeskBridge extends ReactContextBaseJavaModule {
         Intent hcaIntent = builder.intent(getReactApplicationContext(), requestActivityConfig);
         hcaIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getReactApplicationContext().startActivity(hcaIntent);
+    }
+
+    /**
+     * Parse group ids from react native arguments.
+     *
+     * @param options
+     * @return list of ids
+     */
+    private ArrayList<Double> getGroupIds(@Nullable ReadableMap options) {
+        if (options == null || !options.hasKey("groupIds")) return new ArrayList<>();
+        ArrayList<Double> idList = new ArrayList<>();
+        for (Object groupId : options.getArray("groupIds").toArrayList()) {
+            idList.add(Double.parseDouble(String.valueOf(groupId)));
+        }
+        return idList;
     }
 }
