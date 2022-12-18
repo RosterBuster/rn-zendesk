@@ -1,13 +1,11 @@
 import UIKit
 import Foundation
-import CommonUISDK
-import ZendeskSDK
+import SupportSDK
+import SDKConfigurations
 import ZendeskCoreSDK
-
 
 @objc(RNZendesk)
 class RNZendesk: RCTEventEmitter {
-
     override public static func requiresMainQueueSetup() -> Bool {
         return false;
     }
@@ -26,10 +24,11 @@ class RNZendesk: RCTEventEmitter {
 
     @objc(initialize:)
     func initialize(config: [String: Any]) {
+    
         guard
-            let appId = config["appId"] as? String,
-            let clientId = config["clientId"] as? String,
-            let zendeskUrl = config["zendeskUrl"] as? String else { return }
+        let appId = config["appId"] as? String,
+        let clientId = config["clientId"] as? String,
+        let zendeskUrl = config["zendeskUrl"] as? String else { return }
         
         Zendesk.initialize(appId: appId, clientId: clientId, zendeskUrl: zendeskUrl)
         Support.initialize(withZendesk: Zendesk.instance)
@@ -65,7 +64,7 @@ class RNZendesk: RCTEventEmitter {
                 hcConfig.groupIds = groupIds
             }
 
-            let helpCenter = HelpCenterUi.buildHelpCenterOverviewUi(withConfigs: [hcConfig, config])
+            let helpCenter = ZDKHelpCenterUi.buildHelpCenterOverviewUi(withConfigs: [hcConfig,config])
             
             let uiNavigationController = UINavigationController(rootViewController: helpCenter)
             uiNavigationController.modalPresentationStyle = .fullScreen
@@ -73,3 +72,4 @@ class RNZendesk: RCTEventEmitter {
         }
     }
 }
+
