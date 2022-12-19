@@ -15,7 +15,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => package['repository']['url'], :tag => "v#{s.version}" }
   s.source_files  = "ios/**/*.{h,m,swift}"
   s.swift_version = '5.0'
-
+  s.xcconfig = { 'FRAMEWORK_SEARCH_PATHS' => '$(inherited)', 'CLANG_ENABLE_MODULES' => 'YES', 'ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES' => 'YES' }
   s.dependency "React"
-  s.dependency "ZendeskSDK", "~> 4.0.0"
+  s.dependency 'ZendeskSupportSDK', '~> 5.4.0'
 end

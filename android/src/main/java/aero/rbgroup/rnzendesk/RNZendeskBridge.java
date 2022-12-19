@@ -1,5 +1,6 @@
 package aero.rbgroup.rnzendesk;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
@@ -7,23 +8,24 @@ import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
-import java.util.Locale;
 
 import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.ReadableMap;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 
-import zendesk.commonui.UiConfig;
+import zendesk.configurations.Configuration;
 import zendesk.core.Zendesk;
 import zendesk.core.Identity;
-import zendesk.core.JwtIdentity;
 import zendesk.core.AnonymousIdentity;
 import zendesk.support.Support;
+import zendesk.support.guide.ArticleConfiguration;
 import zendesk.support.guide.HelpCenterActivity;
-import zendesk.support.guide.HelpCenterUiConfig.Builder;
+import zendesk.support.guide.HelpCenterConfiguration;
+import zendesk.support.guide.ViewArticleActivity;
 import zendesk.support.request.RequestActivity;
 import zendesk.support.requestlist.RequestListActivity;
+
 
 public class RNZendeskBridge extends ReactContextBaseJavaModule {
 
@@ -39,7 +41,6 @@ public class RNZendeskBridge extends ReactContextBaseJavaModule {
 
     // Initialization Methods
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @ReactMethod
     public void initialize(ReadableMap config) {
         String appId = config.getString("appId");
@@ -54,9 +55,9 @@ public class RNZendeskBridge extends ReactContextBaseJavaModule {
     @ReactMethod
     public void identifyAnonymous(String name, String email) {
         Identity identity = new AnonymousIdentity.Builder()
-            .withNameIdentifier(name)
-            .withEmailIdentifier(email)
-            .build();
+                .withNameIdentifier(name)
+                .withEmailIdentifier(email)
+                .build();
 
         Zendesk.INSTANCE.setIdentity(identity);
     }
@@ -69,13 +70,13 @@ public class RNZendeskBridge extends ReactContextBaseJavaModule {
         String subject = options.hasKey("subject") ? options.getString("subject") : "";
         boolean enableContactUs = !(options.hasKey("hideContactSupport") && options.getBoolean("hideContactSupport"));
 
-        UiConfig requestActivityConfig = RequestActivity.builder()
-            .withRequestSubject(subject)
-            .withTags(tags)
-            .config();
+        Configuration requestActivityConfig = RequestActivity.builder()
+                .withRequestSubject(subject)
+                .withTags(tags)
+                .config();
 
-        Builder builder = HelpCenterActivity.builder()
-            .withContactUsButtonVisible(enableContactUs);
+        HelpCenterConfiguration.Builder builder = HelpCenterActivity.builder()
+                .withContactUsButtonVisible(enableContactUs);
 
         int groupType = options.hasKey("groupType") ? options.getInt("groupType") : 0;
         ArrayList<Double> groupIds = options.hasKey("groupIds") ? getGroupIds(options) : new ArrayList();
@@ -99,6 +100,7 @@ public class RNZendeskBridge extends ReactContextBaseJavaModule {
         Intent hcaIntent = builder.intent(getReactApplicationContext(), requestActivityConfig);
         hcaIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getReactApplicationContext().startActivity(hcaIntent);
+
     }
 
     /**
