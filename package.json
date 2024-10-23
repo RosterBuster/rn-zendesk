@@ -1,6 +1,6 @@
 {
   "name": "rn-zendesk",
-  "version": "4.0.0",
+  "version": "3.0.0",
   "description": "Wrapper around the native Zendesk SDK for React Native.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -38,6 +38,6 @@
   "devDependencies": {
     "@types/react-native": "^0.60.0",
     "rimraf": "^3.0.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.0"
   }
 }
