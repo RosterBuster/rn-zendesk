@@ -15,7 +15,7 @@ jobs:
       # Setup node with version 12.x and NPM registry url
       - uses: actions/setup-node@v1
         with:
-          node-version: "16.x"
+          node-version: "12.x"
           registry-url: "https://registry.npmjs.org"
       # Run yarn install to install project packages
       - run: yarn install
